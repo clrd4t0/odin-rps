@@ -54,7 +54,7 @@ function playGame() {
                 alert("Please input a correct option.");
             }
         }
-        console.log(playRound(playerSelection, getComputerChoice()));
+        alert(playRound(playerSelection, getComputerChoice()));
     }
 }
 
