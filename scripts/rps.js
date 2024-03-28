@@ -2,31 +2,31 @@
 
 function getComputerChoice() { 
     switch (generateRandomValue()) { 
-        case 1: // 1 is Rock
-            return "Rock"; 
+        case 1:
+            return "rock"; 
             break;
-        case 2: // 2 is Paper
-            return "Paper"; 
+        case 2: 
+            return "paper"; 
             break;
-        case 3: // 3 is Scissors
-            return "Scissors"; 
+        case 3: 
+            return "scissors"; 
     }
 }
 
 let computerLives = 5;
 let playerLives = 5;
 
-function playRound(playerSelection, computerSelection) {
+function evaluateWinner(playerSelection, computerSelection) {
     if (playerSelection === computerSelection) {
-        return `Tied! Both you and the computer chose ${computerSelection}`;
-    } else if (playerSelection === "Rock" && computerSelection === "Scissors") { 
-        return "You win! Rock beats Scissors"; 
-    } else if (playerSelection === "Paper" && computerSelection === "Rock") {
-        return "You win! Paper beats Rock";
-    } else if (playerSelection === "Scissors" && computerSelection === "Paper") {
-        return "You win! Scissors beats Rock";
+        return "Tie";
+    } else if (playerSelection === "rock" && computerSelection === "scissors") { 
+        return "player-wins"; 
+    } else if (playerSelection === "paper" && computerSelection === "rock") {
+        return "player-wins";
+    } else if (playerSelection === "scissors" && computerSelection === "paper") {
+        return "player-wins";
     } else { // All other scenarios are player loses
-        return `You lose! ${computerSelection} beats ${playerSelection}`
+        return "player-loses";
     }
 }
 
@@ -58,44 +58,44 @@ function generateRandomValue(ceiling = 3) {
     return Math.floor(Math.random() * ceiling) + 1; // Add one ensures the value can reach the ceiling
 }
 
-function playGame() {
-    // console.clear();
-    // let numberOfRounds = 0; 
-    // while (true) { 
-    //     numberOfRounds = parseInt(prompt("How many rounds of Rock Paper Scissors would you like to play?", 5)); 
-    //     if (!isNaN(numberOfRounds) && numberOfRounds > 0) { 
-    //         break;
-    //     } else {
-    //         alert("Please input a positve integer.");
-    //     }
-    // }
-    // for (let i = 1; i <= numberOfRounds; i++) { 
-    //     console.log(`Round ${i} of ${numberOfRounds}`);
-    //     let playerSelection;
-    //     while (true) {
-    //         playerSelection = prompt(`Round ${i} of ${numberOfRounds} \nPlease throw your throw by typing in rock, paper, or scissors.`);
-    //         playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.substring(1).toLowerCase();
-    //         if (playerSelection === "Rock" || playerSelection === "Paper" || playerSelection === "Scissors") {
-    //             break;
-    //         } else {
-    //             alert("Please input a correct option.");
-    //         }
-    //     }
-    //     alert(playRound(playerSelection, getComputerChoice()));
-    // } // Old routine commented and hidden for clarity purposes. Should be removed.
-
+async function playGame(playerThrow) {
+    allPlayerThrows.forEach((option) => {
+        if (option.id !== playerThrow) {
+            option.classList.toggle("disabled");
+        }
+    }); 
+    computerChoice = getComputerChoice();
+    console.log(computerChoice);
+    // TODO: Update Computer Throw Image based on computer choice
+    roundResult = evaluateWinner(playerThrow, computerChoice);
+    if (roundResult === "player-wins") {
+        removeOneLive("computer");
+    } else if (roundResult === "player-loses") {
+        removeOneLive("player");
+    } else {
+        alert("Tie!");
+    }
+    // TODO: Add middle announcements for all 3 cases above
+    await sleep(3000);
+    allPlayerThrows.forEach((option) => {
+        if (option.id !== playerThrow) {
+            option.classList.toggle("disabled");
+        }
+    }); 
 }
 
 // DOM related variables and functions
 
+const allPlayerThrows = document.querySelectorAll("#player-side .throw")
+
 const rockButton = document.querySelector(".throw#rock");
-rockButton.addEventListener("click", () => alert("Rock was clicked!"));
+rockButton.addEventListener("click", () => playGame("rock"));
 
 const paperButton = document.querySelector(".throw#paper");
-paperButton.addEventListener("click", () => alert("Paper was clicked!"));
+paperButton.addEventListener("click", () => playGame("paper"));
 
 const scissorsButton = document.querySelector(".throw#scissors");
-scissorsButton.addEventListener("click", () => alert("Scissors was clicked!"));
+scissorsButton.addEventListener("click", () => playGame("scissors"));
 
 const announcementsContainer = document.querySelector("#announcements-container");
 const announcementsField = document.querySelector("#announcements");
@@ -108,7 +108,7 @@ const resetButtons = document.querySelectorAll(".reset");
 
 resetButtons.forEach((button) => {
     button.addEventListener("click", reset);
-})
+});
 
 function reset(){
     winEndingPopup.classList.remove("popup-visible");

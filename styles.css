@@ -92,14 +92,6 @@ p {
     transition: 0.3s
 }
 
-/* #computer-side {
-    margin-bottom: 40px;
-} */
-
-/* #computer-side .throw-container {
-    opacity: 0;
-} */
-
 .throw-container {
     display: flex;
     align-items: center;
@@ -137,6 +129,16 @@ p {
     width: 150px;
     height: 150px;
     -webkit-user-drag: none;
+}
+
+.winning-throw {
+    outline: solid green 4px;
+    pointer-events: none;
+}
+
+.losing-throw {
+    outline: solid red 4px;
+    pointer-events: none;
 }
 
 .disabled {
