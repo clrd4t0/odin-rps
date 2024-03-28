@@ -1,0 +1,245 @@
+@font-face {
+    font-family: "VerminVibes1989";
+    src: url("fonts/VerminVibes1989/VerminVibes1989Regular.woff") format("woff"),
+         url("fonts/VerminVibes1989/VerminVibes1989Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "MozartNBP";
+    src: url("fonts/MozartNBP/MozartNBP.woff2") format("woff2"),
+         url("fonts/MozartNBP/MozartNBP.woff") format("woff"),
+         url("fonts/MozartNBP/MozartNBP.ttf") format("truetype");
+}
+
+body {
+    height: 100vh;
+    margin: 0px;
+    background-image: url(images/background.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: rgb(45, 0, 87);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    font-family: "MozartNBP", "Arial", "Sans-serif";
+    font-size: 36px;
+}
+
+@media (min-aspect-ratio: 2500/1667) {
+    body {
+        background-size: cover;
+    }
+}
+
+@media (max-aspect-ratio: 2500/1667) {
+    body {
+        
+        background-size: auto 100vh;
+    }
+}
+
+#title,
+#subtitle {
+    font-family: "VerminVibes1989", "Times New Roman", "Serif";
+    text-align: center;
+    padding: 10px;
+}
+
+#title {
+    font-size: 72px;
+}
+
+#subtitle {
+    font-size: 40px;
+}
+
+#hero {
+    padding: 3vh 0px 0px;
+}
+
+p {
+    margin: 0px;
+}
+
+#playing-field,
+#main-body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#playing-field-header p {
+    text-align: center;
+    margin: 6px;
+    height: 1em;
+}
+
+#playing-field-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#player-side,
+#computer-side {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    transition: 0.3s
+}
+
+/* #computer-side {
+    margin-bottom: 40px;
+} */
+
+/* #computer-side .throw-container {
+    opacity: 0;
+} */
+
+.throw-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.throw {
+    margin: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: 0.1s;
+    outline: dashed rgb(103, 103, 0) 0px;
+    border-radius: 10px;
+}
+
+#announcements-container {
+    margin: 10px;
+    height: 30px;
+    width: 500px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+#player-side .throw:hover {
+    outline: dashed rgb(141, 141, 0) 4px;
+    cursor: pointer;
+}
+
+#player-side .throw:active {
+    outline: dashed rgb(0, 124, 206) 4px;
+}
+
+.throw img {
+    width: 150px;
+    height: 150px;
+    -webkit-user-drag: none;
+}
+
+.disabled {
+    pointer-events: none;
+    filter: grayscale(1) brightness(0.3);
+    transition: 0.3s;
+}
+
+.lives-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lives-container img {
+    width: 50px;
+    height: 50px;
+    -webkit-user-drag: none;
+}
+
+
+a {
+    color: inherit;
+}
+
+ul,
+li {
+    list-style: none;
+    padding: 12px 0px;
+}
+
+#footer {
+    font-size: 24px;
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 30px;
+}
+
+#footer p {
+    margin: 12px;
+}
+
+.endgame-popup {
+    z-index: 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 70vh;
+    width: 70vw;
+    border-radius: 20px;
+    color: black; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+    box-sizing: border-box;
+    flex-direction: column;
+    transition: 0.3s;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.win {
+    background-color: rgb(255, 248, 218); 
+    transition: 0.3s;
+}
+
+.lose {
+    background-color: rgb(56, 1, 1); 
+    color: white;
+    transition: 0.3s;
+}
+
+.popup-visible {
+    visibility: visible;
+    opacity: 1;
+    transition: 0.3s;
+}
+
+.endgame-popup img {
+    height: 40vh;
+    width: auto;
+}
+
+.endgame-popup p {
+    text-align: center;
+}
+
+#game-over {
+    color: red;
+    font-family: "VerminVibes1989", "Times New Roman", "Serif";
+    font-size: 200px;
+}
+
+.reset {
+    cursor: pointer;
+    width: 15vw;
+    height: 5vh;
+    background-color: rgb(185, 0, 185);
+    color: white;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

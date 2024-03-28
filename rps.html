@@ -4,10 +4,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
+    <link href="styles.css" rel="stylesheet">
 </head>
 <body>
-    <p>You will be playing <a href="https://www.wikihow.com/Play-Rock,-Paper,-Scissors" rel="noopener noreferer" target="_blank">Rock Paper Scissors</a> against your web browser. </p>
-    <p><button id="debug">Play Game</button></p>
+    <div id="hero">
+        <div id="title">Rock Paper Scissors</div>
+    </div>
+
+    <div id="playing-field">
+        <div id="playing-field-header">
+            <!-- Type Writer animation for the introduction header -->
+            <script src="scripts/typeWriter.js"></script>
+        </div>
+        <div id="playing-field-body">
+            <div id="computer-side">
+                <div class="throw-container-header">
+                    Computer is choosing...
+                </div>
+                <div class="throw-container">
+                    <div class="throw" id="choosing">
+                        <img src="images/choosing.png">
+                    </div>
+                </div>
+                <div class="lives-container-header">
+                    <p>Computer's Remaining Lives</p>
+                </div>
+                <div class="lives-container">
+                    <img id="lives-p1" src="images/goodHeart.png">
+                    <img id="lives-p2" src="images/goodHeart.png">
+                    <img id="lives-p3" src="images/goodHeart.png">
+                    <img id="lives-p4" src="images/goodHeart.png">
+                    <img id="lives-p5" src="images/goodHeart.png">
+                </div>
+            </div>
+            <div id="announcements-container">
+                <p id="announcements"></p>
+            </div>
+            <div id="player-side">
+                <div class="throw-container-header">Please choose your throw:</div>
+                <div class="throw-container">
+                    <div class="throw" id="rock">
+                        <img src="images/rock.png">
+                        <p>Rock</p>
+                    </div>
+                    <div class="throw" id="paper">
+                        <img src="images/paper.png">
+                        <p>Paper</p>
+                    </div>
+                    <div class="throw" id="scissors">
+                        <img src="images/scissors.png">
+                        <p>Scissors</p>
+                    </div>
+                </div>
+                <div class="lives-container-header">
+                    <p>Your Remaining Lives</p>
+                </div>
+                <div class="lives-container">
+                    <img id="lives-p1" src="images/goodHeart.png">
+                    <img id="lives-p2" src="images/goodHeart.png">
+                    <img id="lives-p3" src="images/goodHeart.png">
+                    <img id="lives-p4" src="images/goodHeart.png">
+                    <img id="lives-p5" src="images/goodHeart.png">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="footer">
+        <p><span>Created with <3 as part of <a id="TOP-link" href="https://www.theodinproject.com/" target="_blank" rel="noopener noreferer">The Odin Project</a>.</p>
+        <p><a href="attributions.html">Credits and Attributions</a></p>
+    </div>
+
+    <div class="endgame-popup win" id="win-ending">
+        <div>
+            <p>Congratulations! You've beaten the computer!</p>
+            <p>Here, have a chicken for dinner.</p>
+        </div>
+        <img src="images/chicken.png">
+        <div class="reset"><p>Play Again</p></div>
+    </div>
+    <div class="endgame-popup lose" id="lose-ending">
+        <div>
+            <p>The computer has beaten you.</p>
+            <p>I mean, they are smarter than us, like, a lot smarter.</p>
+        </div>
+        <div id="game-over">
+            <p>GAME</p>
+            <p>OVER</p>
+        </div>
+        <div class="reset"><p>Play Again</p></div>
+    </div>
     <script src="scripts/rps.js"></script>
 </body>
 </html>
