@@ -18,7 +18,7 @@ let playerLives = 5;
 
 function evaluateWinner(playerSelection, computerSelection) {
     if (playerSelection === computerSelection) {
-        return "Tie";
+        return "tie";
     } else if (playerSelection === "rock" && computerSelection === "scissors") { 
         return "player-wins"; 
     } else if (playerSelection === "paper" && computerSelection === "rock") {
@@ -62,31 +62,52 @@ async function playGame(playerThrow) {
     allPlayerThrows.forEach((option) => {
         if (option.id !== playerThrow) {
             option.classList.toggle("disabled");
+        } else {
+            option.classList.toggle("active-disabled");
         }
     }); 
-    computerChoice = getComputerChoice();
-    console.log(computerChoice);
-    // TODO: Update Computer Throw Image based on computer choice
+    playerHeader.textContent = `You chose ${playerThrow}`;
+    let computerChoice = getComputerChoice();
+    displayComputerChoice(computerChoice);
     roundResult = evaluateWinner(playerThrow, computerChoice);
     if (roundResult === "player-wins") {
         removeOneLive("computer");
+        togglePlayerThrowBorder(playerThrow, roundResult);
+        toggleComputerThrowBorder(roundResult);
+        await announceRoundWin();
+        togglePlayerThrowBorder(playerThrow, roundResult);
+        toggleComputerThrowBorder(roundResult);
     } else if (roundResult === "player-loses") {
         removeOneLive("player");
+        togglePlayerThrowBorder(playerThrow, roundResult);
+        toggleComputerThrowBorder(roundResult);
+        await announceRoundLose();
+        togglePlayerThrowBorder(playerThrow, roundResult);
+        toggleComputerThrowBorder(roundResult);
     } else {
-        alert("Tie!");
+        togglePlayerThrowBorder(playerThrow, roundResult);
+        toggleComputerThrowBorder(roundResult);
+        await announceRoundTie();
+        togglePlayerThrowBorder(playerThrow, roundResult);
+        toggleComputerThrowBorder(roundResult);
     }
-    // TODO: Add middle announcements for all 3 cases above
-    await sleep(3000);
     allPlayerThrows.forEach((option) => {
         if (option.id !== playerThrow) {
             option.classList.toggle("disabled");
+        } else {
+            option.classList.toggle("active-disabled");
         }
     }); 
+    playerHeader.textContent = "Please choose your throw:"
+    displayComputerChoice();
 }
 
 // DOM related variables and functions
 
+const computerOutput = document.querySelector("#computer-output img");
+
 const allPlayerThrows = document.querySelectorAll("#player-side .throw")
+const computerThrows = document.querySelector("#computer-side .throw");
 
 const rockButton = document.querySelector(".throw#rock");
 rockButton.addEventListener("click", () => playGame("rock"));
@@ -99,6 +120,9 @@ scissorsButton.addEventListener("click", () => playGame("scissors"));
 
 const announcementsContainer = document.querySelector("#announcements-container");
 const announcementsField = document.querySelector("#announcements");
+
+const computerHeader = document.querySelector("#computer-side .throw-container-header");
+const playerHeader = document.querySelector("#player-side .throw-container-header");
 
 const popupContainer = document.querySelector("#endgame-popup");
 const winEndingPopup = document.querySelector("#win-ending");
@@ -118,6 +142,48 @@ function reset(){
     hearts.forEach((heart) => {heart.src = "images/goodHeart.png"});
     computerLives = 5;
     playerLives = 5;
+}
+
+function displayComputerChoice(choice = "choosing") {
+    if (choice === "choosing") {
+        computerHeader.textContent = "Computer is choosing...";
+    } else {
+        computerHeader.textContent = `Computer chose ${choice}`;
+    }
+    computerOutput.src = `images/${choice}.png`;
+}
+
+function togglePlayerThrowBorder(choice, winOrLose) {
+    let borderClass;
+    switch (winOrLose) {
+        case "player-wins":
+            borderClass = "winning-throw";
+            break;
+        case "player-loses":
+            borderClass = "losing-throw";
+            break;
+        default:
+            borderClass = "tying-throw"
+    }
+    allPlayerThrows.forEach((option) => {
+        if (option.id === choice) {
+            option.classList.toggle(borderClass);
+        }
+    });
+}
+
+function toggleComputerThrowBorder(winOrLose) {
+    switch (winOrLose) {
+        case "player-wins":
+            borderClass = "losing-throw";
+            break;
+        case "player-loses":
+            borderClass = "winning-throw";
+            break;
+        default:
+            borderClass = "tying-throw"
+    }
+    computerThrows.classList.toggle(borderClass);
 }
 
 async function announceRoundWin() {
